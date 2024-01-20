@@ -10,8 +10,6 @@
 
 My GitHub now  have the following structure
 
-Note: Depending on what method I used in the previous project I may have or not have `roles` folder in my GitHub repository – if I used ansible-galaxy, then roles directory was only created on my `Jenkins-Ansible` server locally. It is recommended to have all the codes managed and tracked in GitHub, so i might want to recreate this structure manually in this case.
-
 ```
 ├── dynamic-assignments
 │   └── env-vars.yml
@@ -28,10 +26,7 @@ Note: Depending on what method I used in the previous project I may have or not 
     └── common.yml
 ```
 
-Since I will be using the same Ansible to configure multiple environments, and each of these environments will have certain unique attributes, such as servername, ip-address etc., I will need a way to set values to variables per specific environment.
-
-For this reason, I will now create a folder to keep each environment’s variables file. Therefore, I created a new folder env-vars, then for each environment, i created new YAML files which I will use to set variables.
-
+I will now created a folder to keep each environment’s variables file. 
 My layout now look like this.
 
 ```
@@ -84,7 +79,7 @@ Now i pasted the instruction below into the env-vars.yml file.
 
 I Updated site.yml with dynamic assignments
 
-i Updated `site.yml` file to make use of the dynamic assignment. (At this point, I cannot test it yet.Am  just setting the stage for what is yet to come.)
+i Updated `site.yml` file to make use of the dynamic assignment.
 
 site.yml should now look like this.
 
@@ -107,7 +102,7 @@ site.yml should now look like this.
 ## Community Roles
 
 
-Now it is time to create a role for the MySQL database – it should install the MySQL package, create a database, and configure users. But why should I re-invent the wheel? There are tons of roles that have already been developed by other open source engineers out there. These roles are actually production-ready and dynamic to accommodate most Linux flavors. With Ansible Galaxy again, I can simply download a ready-to-use Ansible role and keep going.
+With Ansible Galaxy , I can simply download a ready-to-use Ansible role and keep going.
 
 Download Mysql Ansible Role
 
