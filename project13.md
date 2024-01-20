@@ -4,13 +4,13 @@
 **INTRODUCING DYNAMIC ASSIGNMENT INTO OUR STRUCTURE**
 
 
-1. In your https://github.com/<your-name>/ansible-config-mgt GitHub repository start a new branch and call it `dynamic-assignments`.
+1. In my  https://github.com/<your-name>/ansible-config-mgt GitHub repositor,y i started a new branch and call it `dynamic-assignments`.
 
-2. Create a new folder, name it `dynamic-assignments`. Then inside this folder, create a new file and name it `env-vars.yml`. We will instruct `site.yml` to include this playbook later. 
+2. i Created a new folder, name it `dynamic-assignments`. Then inside this folder, i created a new file and name it `env-vars.yml`. I will instruct `site.yml` to include this playbook later. 
 
-Your GitHub shall have following structure by now.
+My GitHub now  have the following structure
 
-Note: Depending on what method you used in the previous project you may have or not have `roles` folder in your GitHub repository – if you used ansible-galaxy, then roles directory was only created on your `Jenkins-Ansible` server locally. It is recommended to have all the codes managed and tracked in GitHub, so you might want to recreate this structure manually in this case.
+Note: Depending on what method I used in the previous project I may have or not have `roles` folder in my GitHub repository – if I used ansible-galaxy, then roles directory was only created on my `Jenkins-Ansible` server locally. It is recommended to have all the codes managed and tracked in GitHub, so i might want to recreate this structure manually in this case.
 
 ```
 ├── dynamic-assignments
@@ -28,11 +28,11 @@ Note: Depending on what method you used in the previous project you may have or 
     └── common.yml
 ```
 
-Since we will be using the same Ansible to configure multiple environments, and each of these environments will have certain unique attributes, such as servername, ip-address etc., we will need a way to set values to variables per specific environment.
+Since I will be using the same Ansible to configure multiple environments, and each of these environments will have certain unique attributes, such as servername, ip-address etc., I will need a way to set values to variables per specific environment.
 
-For this reason, we will now create a folder to keep each environment’s variables file. Therefore, create a new folder env-vars, then for each environment, create new YAML files which we will use to set variables.
+For this reason, I will now create a folder to keep each environment’s variables file. Therefore, I created a new folder env-vars, then for each environment, i created new YAML files which I will use to set variables.
 
-Your layout should now look like this.
+My layout now look like this.
 
 ```
 ├── dynamic-assignments
@@ -56,7 +56,7 @@ Your layout should now look like this.
 
 ![roles created](./Images/roles.PNG)
 
-Now paste the instruction below into the env-vars.yml file.
+Now i pasted the instruction below into the env-vars.yml file.
 
 ```
 ---
@@ -82,10 +82,9 @@ Now paste the instruction below into the env-vars.yml file.
 
 ## UPDATE SITE.YML WITH DYNAMIC ASSIGNMENTS
 
+I Updated site.yml with dynamic assignments
 
-Update site.yml with dynamic assignments
-
-Update `site.yml` file to make use of the dynamic assignment. (At this point, we cannot test it yet. We are just setting the stage for what is yet to come. So hang on to your hats)
+i Updated `site.yml` file to make use of the dynamic assignment. (At this point, I cannot test it yet.Am  just setting the stage for what is yet to come.)
 
 site.yml should now look like this.
 
@@ -108,7 +107,7 @@ site.yml should now look like this.
 ## Community Roles
 
 
-Now it is time to create a role for MySQL database – it should install the MySQL package, create a database and configure users. But why should we re-invent the wheel? There are tons of roles that have already been developed by other open source engineers out there. These roles are actually production ready, and dynamic to accomodate most of Linux flavours. With Ansible Galaxy again, we can simply download a ready to use ansible role, and keep going.
+Now it is time to create a role for the MySQL database – it should install the MySQL package, create a database, and configure users. But why should I re-invent the wheel? There are tons of roles that have already been developed by other open source engineers out there. These roles are actually production-ready and dynamic to accommodate most Linux flavors. With Ansible Galaxy again, I can simply download a ready-to-use Ansible role and keep going.
 
 Download Mysql Ansible Role
 
@@ -141,7 +140,7 @@ mv geerlingguy.apache/ apacheRole
 
 ## LOAD BALANCER ROLES
 
-We want to be able to choose which Load Balancer to use, Nginx or Apache, so we need to have two roles respectively:
+i want to be able to choose which Load Balancer to use, Nginx or Apache, so i need to have two roles respectively:
 
 1. Nginx
    
@@ -150,7 +149,7 @@ We want to be able to choose which Load Balancer to use, Nginx or Apache, so we 
 
 ## **Important Hints:**
 
-* Since you cannot use both **Nginx** and **Apache** load balancer, you need to add a condition to enable either one – this is where you can make use of variables.
+* Since i cannot use both **Nginx** and **Apache** load balancer, i need to add a condition to enable either one – this is where i can make use of variables.
 
 * Declare a variable in `defaults/main.yml` file inside the Nginx and Apache roles. Name each variables `enable_nginx_lb` and `enable_apache_lb` respectively.
 
@@ -175,20 +174,19 @@ We want to be able to choose which Load Balancer to use, Nginx or Apache, so we 
          - import_playbook: ../static-assignments/loadbalancers.yml
         when: load_balancer_is_required
 ```
+ Now i can make use of `env-vars\uat.yml` file to define which loadbalancer to use in UAT environment by setting respective environmental variable to `true`.
 
-Now you can make use of `env-vars\uat.yml` file to define which loadbalancer to use in UAT environment by setting respective environmental variable to `true`.
-
-You will activate load balancer, and enable `nginx` by setting these in the respective environment’s env-vars file.
+I will activate load balancer, and enable `nginx` by setting these in the respective environment’s env-vars file.
 
 ```
 enable_nginx_lb: true
 load_balancer_is_required: true
 ```
 
-The same must work with `apache` LB, so you can switch it by setting respective environmental variable to `true` and other to `false`.
+The same must work with `apache` LB, so I can switch it by setting respective environmental variable to `true` and other to `false`.
 
 
-Run Playbook using:
+I now Run Playbook using:
 
 ```
 ansible-playbook -i inventory/uat.yml playbooks/site.yml
